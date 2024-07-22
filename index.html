@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Webpage Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 250px 1fr;
+            grid-template-areas:
+                "header header"
+                "aside main"
+                "footer footer";
+        }
+
+        header {
+            grid-area: header;
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .mobile-header {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hamburger {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        aside {
+            grid-area: aside;
+            background-color: #f0f0f0;
+            padding: 1rem;
+            overflow-y: auto;
+            position: sticky;
+            top: 0;
+            height: calc(100vh - 100px);
+        }
+
+        main {
+            grid-area: main;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-content {
+            max-width: 760px;
+            width: 100%;
+        }
+
+        footer {
+            grid-area: footer;
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .mobile-footer {
+            display: none;
+            background-color: #333;
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .nav-category {
+            margin-bottom: 1rem;
+        }
+
+        .nav-category > summary {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-subcategory {
+            margin-left: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            header .desktop-header {
+                display: none;
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            aside {
+                position: fixed;
+                left: -250px;
+                top: 0;
+                bottom: 0;
+                width: 250px;
+                transition: left 0.3s ease-in-out;
+                z-index: 1001;
+            }
+
+            aside.active {
+                left: 0;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+            }
+
+            .overlay.active {
+                display: block;
+            }
+
+            footer {
+                display: none;
+            }
+
+            .mobile-footer {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="desktop-header">
+            <h1>Website Header</h1>
+        </div>
+        <div class="mobile-header">
+            <div class="hamburger">☰</div>
+            <h2>Mobile Header</h2>
+        </div>
+    </header>
+
+    <aside>
+        <nav>
+            <details class="nav-category" open>
+                <summary>Category 1</summary>
+                <ul class="nav-subcategory">
+                    <li><a href="#">Subcategory 1.1</a></li>
+                    <li><a href="#">Subcategory 1.2</a></li>
+                    <li><a href="#">Subcategory 1.3</a></li>
+                </ul>
+            </details>
+            <details class="nav-category">
+                <summary>Category 2</summary>
+                <ul class="nav-subcategory">
+                    <li><a href="#">Subcategory 2.1</a></li>
+                    <li><a href="#">Subcategory 2.2</a></li>
+                    <li><a href="#">Subcategory 2.3</a></li>
+                </ul>
+            </details>
+        </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main>
+        <div class="main-content">
+            <h1>Responsive Webpage</h1>
+            <h2>This is the main content area with a maximum width of 760px.</h2>
+
+            <!-- Prompt for ChatGPT -->
+            <p>Create an HTML and CSS layout for a responsive webpage with the following features:</p>
+            <ol>
+                <li>A sticky header that spans the full width, with different versions for desktop and mobile.</li>
+                <li>A sidebar for navigation that's visible on desktop but slides in from the left on mobile when a hamburger menu is clicked.</li>
+                <li>A main content area with a max-width of 760px.</li>
+                <li>A footer that adapts for mobile screens.</li>
+                <li>Use CSS Grid for the overall layout.</li>
+                <li>Implement a mobile-first approach with a breakpoint at 768px.</li>
+                <li>Include basic JavaScript for the mobile menu functionality.</li>
+                <li>Ensure the layout is accessible and semantic.</li>
+            </ol>
+            <p>Please provide the complete HTML, CSS, and JavaScript code for this responsive layout.</p>
+
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Your Website. All rights reserved.</p>
+    </footer>
+
+    <div class="mobile-footer">
+        <p>&copy; 2024 Your Website</p>
+    </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const aside = document.querySelector('aside');
+        const overlay = document.querySelector('.overlay');
+
+        hamburger.addEventListener('click', () => {
+            aside.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            aside.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
